@@ -1,6 +1,229 @@
-/* Removed dark mode glassmorphism styles, returning to the clean white/green/blue design of GLMS2.html (via Tailwind CDN) */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+:root {
+  perspective: 1200px;
+}
+
+body {
+  transform-style: preserve-3d;
+  overflow-x: hidden;
+}
+
+.perspective-deep {
+  perspective: 1500px;
+  transform-style: preserve-3d;
+}
+
+/* ================================================
+   KEYFRAME ANIMATIONS — TEA LEAF FLC DESIGN SYSTEM
+   ================================================ */
+
+/* Fade in from below */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in from above */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Gentle scale-in with 3D depth */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9) translateZ(-100px) rotateX(10deg); }
+  to   { opacity: 1; transform: scale(1) translateZ(0) rotateX(0); }
+}
+
+/* Slide in from left */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Slow float (for logo / hero icon) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Pulse glow (for live-indicator dots) */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+  50%       { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+}
+
+/* Ambient shimmer across a gradient bar */
+@keyframes shimmer {
+  0%   { background-position: -400% center; }
+  100% { background-position: 400% center; }
+}
+
+/* Border beam sweep */
+@keyframes borderBeam {
+  0%   { opacity: 0; left: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; left: 100%; }
+}
+
+/* Subtle breath (for active cards) */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.012); }
+}
+
+/* Stagger row reveal */
+@keyframes rowReveal {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ================================================
+   UTILITY ANIMATION CLASSES
+   ================================================ */
+
+.animate-fadeUp         { animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fadeDown       { animation: fadeDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-scaleIn        { animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slideInLeft    { animation: slideInLeft 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slideInRight   { animation: slideInRight 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-float          { animation: float 4s ease-in-out infinite; }
+.animate-breathe        { animation: breathe 4s ease-in-out infinite; }
+
+/* Stagger helpers */
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
+.delay-500 { animation-delay: 0.50s; }
+.delay-600 { animation-delay: 0.60s; }
+.delay-700 { animation-delay: 0.70s; }
+
+/* ================================================
+   SHIMMER GRADIENT BAR
+   ================================================ */
+.shimmer-bar {
+  background: linear-gradient(
+    90deg,
+    rgba(52,211,153,0.15) 0%,
+    rgba(52,211,153,0.7) 40%,
+    rgba(94,234,212,0.9) 50%,
+    rgba(52,211,153,0.7) 60%,
+    rgba(52,211,153,0.15) 100%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 3.5s linear infinite;
+}
+
+/* ================================================
+   GLOW PULSE DOT
+   ================================================ */
+.glow-dot {
+  animation: glowPulse 2.2s ease-in-out infinite;
+}
+
+/* ================================================
+   3D CARD HOVER & DEPTH
+   ================================================ */
+.card-3d {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-3d:hover {
+  transform: translateZ(20px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 
+    -10px 20px 50px rgba(0,0,0,0.5),
+    0 10px 20px rgba(52, 211, 153, 0.05);
+}
+
+.depth-element {
+  transform: translateZ(40px);
+}
+
+.tilt-3d {
+  transition: transform 0.4s ease-out;
+  transform-style: preserve-3d;
+}
+
+.tilt-3d:hover {
+  transform: scale(1.02) rotateX(4deg) rotateY(4deg);
+}
+
+/* ================================================
+   TABLE ROW STAGGER (applied via JS inline style)
+   ================================================ */
+.row-anim {
+  animation: rowReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ================================================
+   BORDER BEAM ELEMENT
+   ================================================ */
+.border-beam-wrapper { position: relative; overflow: hidden; }
+.border-beam-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(52,211,153,0.9), transparent);
+  animation: borderBeam 3s ease-in-out infinite;
+}
+
+/* ================================================
+   MODAL ENTRANCE
+   ================================================ */
+.modal-enter {
+  animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ================================================
+   BUTTON PRESS EFFECT
+   ================================================ */
+button:active:not(:disabled) {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+/* ================================================
+   SMOOTH SCROLLBAR (webkit)
+   ================================================ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(52, 211, 153, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(52, 211, 153, 0.6); }
+
+/* ================================================
+   EXISTING MODAL BASE STYLE
+   ================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+}
+.printable-area { position: relative; }
+@media print {
+  .no-print { display: none !important; }
+  .modal { position: static; background: none; backdrop-filter: none; padding: 0; }
 }
