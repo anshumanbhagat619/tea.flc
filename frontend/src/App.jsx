@@ -955,8 +955,10 @@ function MainView({ db, saveDB, currentUser, handleLogout, toast }) {
           
           <div className="flex items-center gap-4">
             <div className="hidden md:flex flex-col items-end">
-              <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none drop-shadow-sm">Accessing as</span>
-              <span className="text-xs font-bold text-emerald-400 tracking-tight drop-shadow-sm">{currentUser.fullName}</span>
+              <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none drop-shadow-sm flex items-center gap-1.5">
+                HELLO <span className="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded text-[8px] border border-emerald-500/30">{currentUser.role === 'master' ? 'ADMIN' : currentUser.role}</span>
+              </span>
+              <span className="text-xs font-bold text-emerald-400 tracking-tight drop-shadow-sm mt-1">{currentUser.fullName}</span>
             </div>
             <button onClick={handleLogout} className="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-[0_4px_15px_rgba(0,0,0,0.2)] border border-white/10 transition-all hover:shadow-[0_4px_20px_rgba(0,0,0,0.4)] active:scale-95 flex items-center gap-2 group backdrop-blur-md">
               <KeyRound className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-12 transition-transform"/> EXIT
