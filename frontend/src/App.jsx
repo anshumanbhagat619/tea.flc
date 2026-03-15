@@ -219,66 +219,72 @@ function EditModal({ sample, close, updateSample }) {
   }
 
   return (
-    <div className="modal z-[500] p-4 flex items-center justify-center bg-slate-900/40 backdrop-blur-md">
-      <div className="bg-white p-8 rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.25)] w-full max-w-2xl relative border border-white modal-enter overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600"></div>
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-100 shadow-inner"><Pencil className="w-6 h-6 text-emerald-600" /></div>
-            <div>
-              <h3 className="font-serif font-black text-2xl text-slate-800 uppercase tracking-tight">System Record Edit</h3>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mt-1">Serial Tag: <span className="text-emerald-600">#{sample.sampleSerialNo}</span></p>
+    <div className="modal z-[500] p-3 sm:p-4 flex items-center justify-center bg-slate-900/40 backdrop-blur-md">
+      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.25)] w-full max-w-2xl max-h-[92vh] relative border border-white modal-enter flex flex-col">
+        {/* Top gradient bar */}
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 rounded-t-[2rem] sm:rounded-t-[2.5rem]"></div>
+
+        {/* Scrollable content */}
+        <div className="overflow-y-auto custom-scrollbar flex-1 p-5 sm:p-8 pt-6 sm:pt-10">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2.5 sm:p-3 bg-emerald-50 rounded-2xl border border-emerald-100 shadow-inner"><Pencil className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" /></div>
+              <div>
+                <h3 className="font-serif font-black text-xl sm:text-2xl text-slate-800 uppercase tracking-tight">System Record Edit</h3>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mt-1">Serial Tag: <span className="text-emerald-600">#{sample.sampleSerialNo}</span></p>
+              </div>
+            </div>
+            <button onClick={close} className="p-2 hover:bg-slate-100 rounded-full transition-colors flex-shrink-0"><X className="w-6 h-6 text-slate-300" /></button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="space-y-1.5 col-span-2 sm:col-span-1 lg:col-span-2">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Garden / Party Name</label>
+              <input type="text" value={party} onChange={e => setParty(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none transition-all" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Vehicle No</label>
+              <input type="text" value={veh} onChange={e => setVeh(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none transition-all" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Gross Weight</label>
+              <div className="relative">
+                <input type="number" value={gross} onChange={e => setGross(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none pr-10" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-300">KG</span>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Empty Weight</label>
+              <div className="relative">
+                <input type="number" value={tare} onChange={e => setTare(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none pr-10" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-300">KG</span>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">FLC %</label>
+              <input type="number" value={flc} onChange={e => setFlc(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Moisture %</label>
+              <input type="number" value={mois} onChange={e => setMois(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Damaged %</label>
+              <input type="number" value={dmg} onChange={e => setDmg(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
             </div>
           </div>
-          <button onClick={close} className="p-2 hover:bg-slate-100 rounded-full transition-colors"><X className="w-6 h-6 text-slate-300" /></button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-          <div className="space-y-1.5 lg:col-span-2">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Garden / Party Name</label>
-            <input type="text" value={party} onChange={e => setParty(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none transition-all" />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Vehicle No</label>
-            <input type="text" value={veh} onChange={e => setVeh(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none transition-all" />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Gross Weight</label>
-            <div className="relative">
-              <input type="number" value={gross} onChange={e => setGross(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none pr-10" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-300">KG</span>
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Empty Weight</label>
-            <div className="relative">
-              <input type="number" value={tare} onChange={e => setTare(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none pr-10" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-300">KG</span>
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">FLC %</label>
-            <input type="number" value={flc} onChange={e => setFlc(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Moisture %</label>
-            <input type="number" value={mois} onChange={e => setMois(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-500 uppercase px-1 tracking-widest">Damaged %</label>
-            <input type="number" value={dmg} onChange={e => setDmg(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-sm font-bold text-slate-800 focus:border-emerald-500 outline-none" />
-          </div>
-        </div>
-
-        <div className="flex gap-4">
+        {/* Sticky footer with action buttons - always visible */}
+        <div className="flex-shrink-0 p-4 sm:p-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm rounded-b-[2rem] sm:rounded-b-[2.5rem] flex flex-col sm:flex-row gap-3">
           <button onClick={() => updateSample(sample.id, { 
             partyName: party, vehicleNo: veh, 
             grossLoadedWeight: gross, emptyVehicleWeight: tare,
             flcPercent: flc, moistureDeduction: mois, damagedLeaf: dmg
-          })} className="flex-grow bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white py-4 rounded-[1.25rem] font-black text-xs tracking-[0.2em] shadow-lg transition-all flex items-center justify-center gap-3 uppercase group">
+          })} className="flex-grow bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white py-4 rounded-[1.25rem] font-black text-[10px] sm:text-xs tracking-[0.2em] shadow-lg transition-all flex items-center justify-center gap-3 uppercase group">
             <Save className="w-4 h-4 group-hover:rotate-12 transition-transform"/> Commit Update
           </button>
-          <button onClick={close} className="bg-slate-100 text-slate-500 hover:text-slate-800 py-4 px-8 rounded-[1.25rem] font-black text-xs uppercase transition tracking-widest hover:bg-slate-200">Discard</button>
+          <button onClick={close} className="bg-slate-100 text-slate-500 hover:text-slate-800 py-4 px-8 rounded-[1.25rem] font-black text-[10px] sm:text-xs uppercase transition tracking-widest hover:bg-slate-200">Discard</button>
         </div>
       </div>
     </div>
@@ -374,6 +380,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen text-slate-800 w-full flex flex-col relative bg-[#f8fafc]">
+      <SlideshowBackground />
       <div className="flex-grow z-10 w-full relative">
         {view === 'setup' && <SetupView saveDB={saveDB} setView={setView} toast={toast} />}
         {view === 'login' && <LoginView db={db} setCurrentUser={setCurrentUser} setView={setView} saveDB={saveDB} toast={toast} />}
@@ -672,6 +679,24 @@ function MainView({ db, saveDB, currentUser, handleLogout, toast }) {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [scannerRole, setScannerRole] = useState(null);
 
+  const handleScannerClose = useCallback(() => setIsScannerOpen(false), []);
+  const handleScan = useCallback((serial) => {
+    const sample = db.samples.find(s => String(s.sampleSerialNo) === String(serial));
+    if (sample) {
+      if (scannerRole === 'analyst' && sample.status === 'pending_qc') {
+        setIsScannerOpen(false);
+        setActiveModal({ type: 'qcAnalysis', sampleId: sample.id });
+      } else if (scannerRole === 'clerk' && sample.status === 'awaiting_final_weight') {
+        setIsScannerOpen(false);
+        setActiveModal({ type: 'finalWeight', sampleId: sample.id });
+      } else {
+        toast('Sample state not correct for this scan', 'error');
+      }
+    } else {
+      toast('Tag not recognized', 'error');
+    }
+  }, [db.samples, scannerRole, toast]);
+
   // Helper arrays
   const pendingFinal = db.samples.filter(s => s.status === 'awaiting_final_weight');
   const pendingQC = db.samples.filter(s => s.status === 'pending_qc');
@@ -895,7 +920,74 @@ function MainView({ db, saveDB, currentUser, handleLogout, toast }) {
               </div>
             )}
 
-            <div className="overflow-x-auto rounded-xl border border-slate-100 shadow-sm bg-white/40">
+            {/* Mobile: card layout — Desktop: table layout */}
+            <div className="md:hidden space-y-3">
+              {sortedFilteredSamples.length === 0 ? (
+                <div className="text-center py-16 text-slate-400 font-bold tracking-widest uppercase bg-white/40 border border-slate-100 border-dashed rounded-xl flex flex-col items-center gap-3 text-xs">
+                  <FileSpreadsheet className="w-8 h-8 opacity-20" />No records for selected filters
+                </div>
+              ) : sortedFilteredSamples.map((s, i) => (
+                <div key={s.id} className="bg-white/80 border border-slate-100 rounded-2xl p-4 shadow-sm row-anim" style={{ animationDelay: `${i * 60}ms` }}>
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <span className="font-black text-slate-800 font-mono tracking-widest">#{s.sampleSerialNo}</span>
+                      <div className="text-xs font-bold text-slate-500 mt-0.5">{s.partyName}</div>
+                      <div className="text-[10px] font-mono text-slate-400">{s.vehicleNo}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[10px] font-black text-emerald-600 uppercase tracking-widest opacity-60">Final</div>
+                      <div className="text-xl font-black text-emerald-500">{s.finalCalculatedWeight || 0}</div>
+                      <div className="text-[9px] font-bold text-emerald-400">Kgs</div>
+                    </div>
+                  </div>
+                  {/* Card Details Grid */}
+                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100">
+                    <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Gross</div>
+                      <div className="text-xs font-bold text-slate-700">{s.grossLoadedWeight}</div>
+                      <div className="text-[9px] text-slate-400">Kgs</div>
+                    </div>
+                    <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Empty</div>
+                      <div className="text-xs font-bold text-slate-700">{s.emptyVehicleWeight || 0}</div>
+                      <div className="text-[9px] text-slate-400">Kgs</div>
+                    </div>
+                    <div className="bg-emerald-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-1">Net</div>
+                      <div className="text-xs font-bold text-emerald-600">{s.netWeight || 0}</div>
+                      <div className="text-[9px] text-emerald-400">Kgs</div>
+                    </div>
+                    <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">FLC</div>
+                      <div className="text-xs font-bold text-slate-700">{s.flcPercent}%</div>
+                    </div>
+                    <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Moist</div>
+                      <div className="text-xs font-bold text-slate-700">{s.moistureDeduction}%</div>
+                    </div>
+                    <div className="bg-amber-50 rounded-xl p-2.5 text-center">
+                      <div className="text-[9px] font-black text-amber-600 uppercase tracking-widest mb-1">Deduct</div>
+                      <div className="text-xs font-bold text-amber-600">{((s.moistureDeduction || 0) + (s.damagedLeaf || 0)).toFixed(1)}%</div>
+                    </div>
+                  </div>
+                  {/* Admin Actions */}
+                  {currentUser.role === 'master' && (
+                    <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 justify-end">
+                      <button onClick={() => setActiveModal({ type: 'edit', sampleId: s.id })} className="flex items-center gap-1.5 px-3 py-2 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all text-[10px] font-black uppercase tracking-widest border border-slate-100">
+                        <Pencil className="w-3.5 h-3.5" /> Edit
+                      </button>
+                      <button onClick={() => { if (window.confirm('Erase record?')) { saveDB({ ...db, samples: db.samples.filter(x => x.id !== s.id) }); } }} className="flex items-center gap-1.5 px-3 py-2 text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all text-[10px] font-black uppercase tracking-widest border border-slate-100">
+                        <Trash2 className="w-3.5 h-3.5" /> Del
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: Table layout */}
+            <div className="hidden md:block overflow-x-auto rounded-xl border border-slate-100 shadow-sm bg-white/40">
               <table className="w-full text-sm text-left whitespace-nowrap">
                 <thead className="bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
                   <tr><th className="p-5 border-b border-slate-100">Serial</th><th className="p-5 border-b border-slate-100">Garden/Transport</th><th className="p-5 border-b border-slate-100">Weight Breakup</th><th className="p-5 border-b border-slate-100">QC Data</th><th className="p-5 border-b border-slate-100 text-emerald-600 font-black">Final Weight</th>{currentUser.role === 'master' && <th className="p-5 border-b border-slate-100 text-center">Action</th>}</tr>
@@ -977,21 +1069,8 @@ function MainView({ db, saveDB, currentUser, handleLogout, toast }) {
         }
         {isScannerOpen &&
           <ScannerModal
-            close={useCallback(() => setIsScannerOpen(false), [])}
-            onScan={useCallback((serial) => {
-              const sample = db.samples.find(s => String(s.sampleSerialNo) === String(serial));
-              if (sample) {
-                if (scannerRole === 'analyst' && sample.status === 'pending_qc') {
-                  setIsScannerOpen(false);
-                  setActiveModal({ type: 'qcAnalysis', sampleId: sample.id });
-                }
-                else if (scannerRole === 'clerk' && sample.status === 'awaiting_final_weight') {
-                  setIsScannerOpen(false);
-                  setActiveModal({ type: 'finalWeight', sampleId: sample.id });
-                }
-                else toast("Sample state not correct for this scan", "error");
-              } else { toast("Tag not recognized", "error"); }
-            }, [db.samples, scannerRole, toast])}
+            close={handleScannerClose}
+            onScan={handleScan}
           />
         }
       </div>
@@ -1354,7 +1433,7 @@ function QRModal({ serial, close }) {
 
   return (
     <div className="modal bg-white/10 backdrop-blur-md">
-      <div className="bg-white/90 backdrop-blur-2xl p-10 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] text-center relative printable-area border border-white modal-enter">
+      <div className="bg-white/90 backdrop-blur-2xl p-6 sm:p-10 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] text-center relative printable-area border border-white modal-enter max-h-[95vh] overflow-y-auto custom-scrollbar w-full max-w-sm sm:max-w-md">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600 no-print"></div>
         <div className="flex justify-center mb-6 no-print">
           <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100"><Printer className="w-8 h-8 text-blue-600" /></div>
@@ -1499,7 +1578,7 @@ function ScannerModal({ close, onScan }) {
 
   return (
     <div className="modal z-[100]">
-      <div className="bg-white rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.3)] w-full max-w-lg overflow-hidden border border-white relative modal-enter">
+      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_30px_100px_rgba(0,0,0,0.3)] w-full max-w-[calc(100%-2rem)] sm:max-w-lg overflow-y-auto max-h-[95vh] border border-white relative modal-enter custom-scrollbar">
         <div className="p-6 bg-slate-50/80 backdrop-blur-sm text-slate-800 border-b border-slate-100 flex justify-between items-center z-10 relative">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
