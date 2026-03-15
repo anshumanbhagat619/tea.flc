@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@900&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,12 +7,35 @@
 }
 
 :root {
-  /* Perspective removed from root to prevent breaking fixed positioning */
+  --primary: #10b981;
+  --primary-glow: rgba(16, 185, 129, 0.4);
+  --secondary: #0ea5e9;
+  --accent: #f59e0b;
+  --glass-bg: rgba(255, 255, 255, 0.12); /* DARKER GLASS BASE */
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.2);
 }
 
 body {
   overflow-x: hidden;
-  background: #f8fafc;
+  background: #0f172a; /* DEEP NAVY BASE FOR CONTRAST */
+  color: #f8fafc;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Premium Mesh Gradient Background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -100;
+  background: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+  filter: blur(100px);
 }
 
 .perspective-deep {
@@ -19,211 +44,143 @@ body {
 }
 
 /* ================================================
-   KEYFRAME ANIMATIONS — TEA LEAF FLC DESIGN SYSTEM
+   HYPER-GLASS DESIGN SYSTEM (UPGRADED)
    ================================================ */
 
-/* Fade in from below */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(200%) contrast(110%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 3rem;
 }
 
-/* Fade in from above */
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0); }
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-10px) rotateX(1deg);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.6);
 }
 
-/* Gentle scale-in with 3D depth */
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9) translateZ(-100px) rotateX(10deg); }
-  to   { opacity: 1; transform: scale(1) translateZ(0) rotateX(0); }
+/* High Contrast Glass for Light Mode UI elements */
+.glass-ui {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #0f172a;
+  border-radius: 1.5rem;
+  border: 1px solid white;
 }
 
-/* Slide in from left */
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-32px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* Glass Input (REFINED) */
+input, select {
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(15px);
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1.25rem !important;
 }
 
-/* Slide in from right */
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(32px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Slow float (for logo / hero icon) */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-/* Pulse glow (for live-indicator dots) */
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
-  50%       { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
-}
-
-/* Ambient shimmer across a gradient bar */
-@keyframes shimmer {
-  0%   { background-position: -400% center; }
-  100% { background-position: 400% center; }
-}
-
-/* Border beam sweep */
-@keyframes borderBeam {
-  0%   { opacity: 0; left: 0; }
-  30%  { opacity: 1; }
-  100% { opacity: 0; left: 100%; }
-}
-
-/* Subtle breath (for active cards) */
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.012); }
-}
-
-/* Stagger row reveal */
-@keyframes rowReveal {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; transform: translateX(0); }
+input:focus, select:focus {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
 }
 
 /* ================================================
-   UTILITY ANIMATION CLASSES
+   ANALOGUE GRAIN OVERLAY
    ================================================ */
-
-.animate-fadeUp         { animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-fadeDown       { animation: fadeDown 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-scaleIn        { animation: scaleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-slideInLeft    { animation: slideInLeft 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-slideInRight   { animation: slideInRight 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-float          { animation: float 4s ease-in-out infinite; }
-.animate-breathe        { animation: breathe 4s ease-in-out infinite; }
-
-/* Stagger helpers */
-.delay-100 { animation-delay: 0.10s; }
-.delay-200 { animation-delay: 0.20s; }
-.delay-300 { animation-delay: 0.30s; }
-.delay-400 { animation-delay: 0.40s; }
-.delay-500 { animation-delay: 0.50s; }
-.delay-600 { animation-delay: 0.60s; }
-.delay-700 { animation-delay: 0.70s; }
-
-/* ================================================
-   SHIMMER GRADIENT BAR
-   ================================================ */
-.shimmer-bar {
-  background: linear-gradient(
-    90deg,
-    rgba(52,211,153,0.15) 0%,
-    rgba(52,211,153,0.7) 40%,
-    rgba(94,234,212,0.9) 50%,
-    rgba(52,211,153,0.7) 60%,
-    rgba(52,211,153,0.15) 100%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 3.5s linear infinite;
-}
-
-/* ================================================
-   GLOW PULSE DOT
-   ================================================ */
-.glow-dot {
-  animation: glowPulse 2.2s ease-in-out infinite;
-}
-
-/* ================================================
-   3D CARD HOVER & DEPTH
-   ================================================ */
-.card-3d {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.card-3d:hover {
-  transform: translateZ(20px) rotateX(2deg) rotateY(-2deg);
-  box-shadow: 
-    -10px 20px 50px rgba(0,0,0,0.5),
-    0 10px 20px rgba(52, 211, 153, 0.05);
-}
-
-.depth-element {
-  transform: translateZ(40px);
-}
-
-.tilt-3d {
-  transition: transform 0.4s ease-out;
-  transform-style: preserve-3d;
-}
-
-.tilt-3d:hover {
-  transform: scale(1.02) rotateX(4deg) rotateY(4deg);
-}
-
-/* ================================================
-   TABLE ROW STAGGER (applied via JS inline style)
-   ================================================ */
-.row-anim {
-  animation: rowReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* ================================================
-   BORDER BEAM ELEMENT
-   ================================================ */
-.border-beam-wrapper { position: relative; overflow: hidden; }
-.border-beam-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(52,211,153,0.9), transparent);
-  animation: borderBeam 3s ease-in-out infinite;
-}
-
-/* ================================================
-   MODAL ENTRANCE
-   ================================================ */
-.modal-enter {
-  animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* ================================================
-   BUTTON PRESS EFFECT
-   ================================================ */
-button:active:not(:disabled) {
-  transform: scale(0.97);
-  transition: transform 0.1s ease;
-}
-
-/* ================================================
-   SMOOTH SCROLLBAR (webkit)
-   ================================================ */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.4); border-radius: 4px; }
-::-webkit-scrollbar-thumb { background: rgba(52, 211, 153, 0.2); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(52, 211, 153, 0.4); }
-
-/* ================================================
-   EXISTING MODAL BASE STYLE
-   ================================================ */
-.modal {
+body::after {
+  content: "";
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
+  opacity: 0.08;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
-.printable-area { position: relative; }
+
+/* ================================================
+   ANIMATIONS
+   ================================================ */
+
+@keyframes bloom {
+  0% { transform: scale(0.92) translateY(20px); opacity: 0; filter: blur(20px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-20px) rotate(1.5deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes slowPan {
+  0% { transform: scale(1.05) translateX(-1%) translateY(-1%); }
+  50% { transform: scale(1.1) translateX(1%) translateY(1%); }
+  100% { transform: scale(1.05) translateX(-1%) translateY(-1%); }
+}
+
+.animate-bloom { animation: bloom 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-float { animation: float 8s ease-in-out infinite; }
+.animate-slowPan { animation: slowPan 30s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.3s; }
+.delay-300 { animation-delay: 0.45s; }
+.delay-400 { animation-delay: 0.6s; }
+.delay-500 { animation-delay: 0.75s; }
+
+/* ================================================
+   PREMIUM TABLES (HYPER-GLASS)
+   ================================================*/ /* --- Scroller --- */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+  background: rgba(255, 255, 255, 0.15); 
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { 
+  background: rgba(16, 185, 129, 0.5); 
+}
+
+tr {
+  transition: all 0.3s ease;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.002);
+}
+
+/* ================================================
+   MODALS (UPGRADED)
+   ================================================ */
+
+.modal {
+  background: rgba(2, 6, 23, 0.85); /* DEEP SPACE BLUR */
+  backdrop-filter: blur(30px);
+  z-index: 2000;
+}
+
+.modal-enter {
+  animation: bloom 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ================================================
+   PRINTING
+   ================================================ */
+
 @media print {
   .no-print { display: none !important; }
-  .modal { position: static; background: none; backdrop-filter: none; padding: 0; }
+  .printable-area { visibility: visible !important; color: black !important; }
 }

@@ -1,0 +1,12 @@
+{
+  "name": "tea-flc-api",
+  "main": "src/index.js",
+  "compatibility_date": "2024-03-15",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tea-flc-db",
+      "database_id": "9214d8dd-17a8-40a0-9042-18df428e9444"
+    }
+  ]
+}
