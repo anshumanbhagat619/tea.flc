@@ -5,16 +5,16 @@
 }
 
 :root {
-  perspective: 1200px;
+  /* Perspective removed from root to prevent breaking fixed positioning */
 }
 
 body {
-  transform-style: preserve-3d;
   overflow-x: hidden;
+  background: #f8fafc;
 }
 
 .perspective-deep {
-  perspective: 1500px;
+  perspective: 2000px;
   transform-style: preserve-3d;
 }
 
@@ -204,9 +204,9 @@ button:active:not(:disabled) {
    SMOOTH SCROLLBAR (webkit)
    ================================================ */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); border-radius: 4px; }
-::-webkit-scrollbar-thumb { background: rgba(52, 211, 153, 0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(52, 211, 153, 0.6); }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(52, 211, 153, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(52, 211, 153, 0.4); }
 
 /* ================================================
    EXISTING MODAL BASE STYLE
@@ -219,8 +219,8 @@ button:active:not(:disabled) {
   justify-content: center;
   padding: 1rem;
   z-index: 100;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
 }
 .printable-area { position: relative; }
 @media print {
