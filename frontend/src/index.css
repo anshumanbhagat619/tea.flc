@@ -1,0 +1,6 @@
+/* Removed dark mode glassmorphism styles, returning to the clean white/green/blue design of GLMS2.html (via Tailwind CDN) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,4 @@
+node_modules/
+data/teafactory.db
+frontend/node_modules/
+.env
