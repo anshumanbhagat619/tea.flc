@@ -1,3 +1,4 @@
+import sys
 import serial
 import time
 import re
@@ -13,13 +14,13 @@ try:
     print(f"Successfully connected on {COM_PORT}.")
 except Exception as e:
     print(f"Connection failed: {e}")
-    exit()
+    sys.exit(1)
 
 print("Live weight reading... (Press Ctrl+C to stop)")
 
 while True:
     try:
-        if weighbridge.isOpen() and weighbridge.in_waiting > 0:
+        if weighbridge.is_open and weighbridge.in_waiting > 0:
             
             raw_bytes = weighbridge.read(weighbridge.in_waiting)
             
@@ -37,7 +38,9 @@ while True:
                 # 4. Convert '550' to 55.0 kg
                 try:
                     final_weight = float(most_common_number) / 10
-                    print(f"ERP Weight: {final_weight} kg")
+                    if final_weight.is_integer():
+                        final_weight = int(final_weight)
+                    print(f"ERP Weight: {final_weight}kg")
                 except ValueError:
                     pass
                     
