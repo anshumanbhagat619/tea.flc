@@ -1,0 +1,2 @@
+At baud rate 1200 : Weight shows perfect but the decimals and the 0000 is wrong.
+But live weight is being fetched.
