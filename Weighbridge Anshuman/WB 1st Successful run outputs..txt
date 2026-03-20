@@ -1,0 +1,39 @@
+Great!
+It says :
+Successfully connected on COM3.
+Live weight reading... (Press Ctrl+C to stop)
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 0.0 kg
+Scale says: 300000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+Scale says: 5500000.0 kg
+
+In actual it is 55kgs
