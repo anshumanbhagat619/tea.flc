@@ -10,9 +10,7 @@ try:
     weighbridge = serial.Serial()
     weighbridge.port = COM_PORT
     weighbridge.baudrate = BAUD_RATE
-    weighbridge.timeout = 1
-    weighbridge.dtr = False
-    weighbridge.rts = False
+    weighbridge.timeout = 0.5
     weighbridge.open()
     print(f"Successfully connected on {COM_PORT}.")
 except Exception as e:
@@ -24,31 +22,46 @@ print("Live weight reading... (Press Ctrl+C to stop)")
 while True:
     try:
         if weighbridge.is_open and weighbridge.in_waiting > 0:
+            # 1. Grab raw stream and handle any hidden characters
+            raw_data = weighbridge.read(weighbridge.in_waiting)
+            text = raw_data.decode('ascii', errors='replace')
             
-            # 1. Grab the raw data
-            raw_bytes = weighbridge.read(weighbridge.in_waiting)
-            clean_text = raw_bytes.decode('ascii', errors='replace')
-            
-            # 2. Find all blocks of numbers that are at least 2 digits long
-            numbers = re.findall(r'\d{2,}', clean_text)
+            # 2. Find all numeric values
+            numbers = re.findall(r'\d+', text)
             
             if numbers:
-                # 3. Grab the most common number block 
-                # (e.g., if it sees ['550', '550', '550550'], it grabs '550')
-                most_common_number = Counter(numbers).most_common(1)[0][0]
+                # 3. Find the most stable value
+                most_common = Counter(numbers).most_common(1)[0][0]
                 
-                # Convert '0800' to 80.0 kg, or '00' to 0 kg
-                try:
-                    final_weight = float(most_common_number) / 10 
-                    if final_weight.is_integer():
-                        final_weight = int(final_weight)
-                    print(f"Scale says: {final_weight}kg")
-                except ValueError:
-                    pass
+                # --- SENIOR REVERSAL FIX ---
+                # Fixed the bug where 105 became 501. Flip it back!
+                corrected_str = most_common[::-1].lstrip('0')
+                
+                if not corrected_str:
+                    print("Scale says: 0kg")
+                else:
+                    try:
+                        raw_val = float(corrected_str)
+                        
+                        # --- UNIVERSAL ADAPTIVE SCALING ---
+                        # 8+ digits -> Divide by 1M (High precision scale)
+                        # < 7 digits -> Standard KG weight (105, 1783, 50000)
+                        if len(corrected_str) >= 7:
+                            final_weight = raw_val / 1000000
+                        else:
+                            final_weight = raw_val
+                        
+                        if final_weight.is_integer():
+                            final_weight = int(final_weight)
+                        else:
+                            final_weight = round(final_weight, 1)
+
+                        print(f"Scale says: {final_weight}kg")
+                    except ValueError:
+                        pass
                         
     except Exception as e:
         print(f"Lost connection: {e}")
         break 
         
-    # Wait half a second before checking the cable again
-    time.sleep(0.5)
+    time.sleep(0.1)
