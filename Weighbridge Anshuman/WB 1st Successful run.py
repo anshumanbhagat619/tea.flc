@@ -11,8 +11,8 @@ try:
     weighbridge.port = COM_PORT
     weighbridge.baudrate = BAUD_RATE
     weighbridge.timeout = 1
-    weighbridge.setDTR(False)
-    weighbridge.setRTS(False)
+    weighbridge.dtr = False
+    weighbridge.rts = False
     weighbridge.open()
     print(f"Successfully connected on {COM_PORT}.")
 except Exception as e:
@@ -23,7 +23,7 @@ print("Live weight reading... (Press Ctrl+C to stop)")
 
 while True:
     try:
-        if weighbridge.isOpen() and weighbridge.in_waiting > 0:
+        if weighbridge.is_open and weighbridge.in_waiting > 0:
             
             # 1. Grab the raw data
             raw_bytes = weighbridge.read(weighbridge.in_waiting)

@@ -9,8 +9,8 @@ BAUD_RATE = 1200
 
 try:
     weighbridge = serial.Serial(port=COM_PORT, baudrate=BAUD_RATE, timeout=1)
-    weighbridge.setDTR(False)
-    weighbridge.setRTS(False)
+    weighbridge.dtr = False
+    weighbridge.rts = False
     print(f"Successfully connected on {COM_PORT}.")
 except Exception as e:
     print(f"Connection failed: {e}")
