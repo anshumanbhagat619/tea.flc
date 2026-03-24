@@ -1,6 +1,7 @@
 import serial
 import time
 import re
+from collections import Counter
 
 COM_PORT = 'COM3' 
 BAUD_RATE = 1200  
@@ -26,25 +27,22 @@ while True:
             
             # 1. Grab the raw data
             raw_bytes = weighbridge.read(weighbridge.in_waiting)
-            clean_text = raw_bytes.decode('ascii', errors='ignore')
+            clean_text = raw_bytes.decode('ascii', errors='replace')
             
-            # 2. Find EVERY group of numbers in that chunk of data
-            numbers = re.findall(r'\d+', clean_text)
+            # 2. Find all blocks of numbers that are at least 2 digits long
+            numbers = re.findall(r'\d{2,}', clean_text)
             
             if numbers:
-                # 3. Grab the longest continuous number block 
-                # (e.g., if it sees '0', '0800', and '80', it grabs '0800')
-                longest_number = max(numbers, key=len)
+                # 3. Grab the most common number block 
+                # (e.g., if it sees ['550', '550', '550550'], it grabs '550')
+                most_common_number = Counter(numbers).most_common(1)[0][0]
                 
-                # 4. Filter out random single-digit electrical noise
-                if len(longest_number) >= 2:
-                    
-                    # Convert '0800' to 80.0 kg, or '00' to 0.0 kg
-                    try:
-                        final_weight = float(longest_number) / 10 
-                        print(f"Scale says: {final_weight} kg")
-                    except ValueError:
-                        pass
+                # Convert '0800' to 80.0 kg, or '00' to 0.0 kg
+                try:
+                    final_weight = float(most_common_number) / 10 
+                    print(f"Scale says: {final_weight} kg")
+                except ValueError:
+                    pass
                         
     except Exception as e:
         print(f"Lost connection: {e}")
