@@ -37,10 +37,12 @@ while True:
                 # (e.g., if it sees ['550', '550', '550550'], it grabs '550')
                 most_common_number = Counter(numbers).most_common(1)[0][0]
                 
-                # Convert '0800' to 80.0 kg, or '00' to 0.0 kg
+                # Convert '0800' to 80.0 kg, or '00' to 0 kg
                 try:
                     final_weight = float(most_common_number) / 10 
-                    print(f"Scale says: {final_weight} kg")
+                    if final_weight.is_integer():
+                        final_weight = int(final_weight)
+                    print(f"Scale says: {final_weight}kg")
                 except ValueError:
                     pass
                         
